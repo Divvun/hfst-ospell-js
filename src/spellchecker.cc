@@ -72,7 +72,7 @@ void SpellChecker::New(const Nan::FunctionCallbackInfo<v8::Value> &info) {
     // Set some options
     //
     // TODO: Set options via arguments (option object)
-    speller->set_queue_limit(10);
+    // speller->set_queue_limit(10);
     // speller.set_weight_limit(-1.0);
     // speller.set_beam(-1.0);
     // speller.set_time_cutoff(0.0);
