@@ -70,7 +70,7 @@ test("concurrent spelling suggestions", async (t) => {
   about_the_same(t, suggestions, [
     ['akkusatiivva', 'akkusatiiva', 'akkusatiivan', 'akkusatiiva-'],
     ['Bert', 'Evert', 'Mweru', 'Zwart', 'Uwet', 'Kert', 'Owet', 'Gjert', 'Egert', 'Gert', 'q-Art', 'q-Bert', 'q-Gert', 'q-Kert', 'q-erot', 'q-et'],
-    ['Iuella', 'Puteola', 'njiella', 'Uutela', 'nulla', 'Sutela', 'Juella', 'Stella'],
+    ['Iuella', 'Juella', 'Puteola', 'Stella', 'Sutela', 'Uutela', 'n-Bella', 'n-Hella', 'n-Stella', 'n-Tella', 'n-Zella', 'n-tilla', 'n-tálla', 'njiella', 'nulla'],
     []]
   );
 });
