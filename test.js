@@ -46,7 +46,7 @@ test("spelling suggestions", async (t) => {
   const spellchecker = new SpellChecker("etc/se.zhfst");
   const suggestions = await spellchecker.suggestions("akkusativa");
 
-  t.deepEqual(suggestions, ['akkusatiivva', 'akkusatiiva', 'akkusatiivan']);
+  t.deepEqual(suggestions, ['akkusatiivva', 'akkusatiiva', 'akkusatiivan', 'akkusatiiva-']);
 });
 
 test("no spelling suggestions possible", async (t) => {
