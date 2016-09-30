@@ -68,7 +68,7 @@ test("concurrent spelling suggestions", async (t) => {
   // Only check the values are all present but ignore the order. (For some
   // reason, the order of suggestions is different on Linux and OS X...)
   about_the_same(t, suggestions, [
-    ['akkusatiivva', 'akkusatiiva', 'akkusatiivan'],
+    ['akkusatiivva', 'akkusatiiva', 'akkusatiivan', 'akkusatiiva-'],
     ['Bert', 'Evert', 'Mweru', 'Zwart', 'Uwet', 'Kert', 'Owet', 'Gjert', 'Egert', 'Gert'],
     ['Iuella', 'Puteola', 'njiella', 'Uutela', 'nulla', 'Sutela', 'Juella', 'Stella'],
     []]
