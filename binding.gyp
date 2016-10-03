@@ -43,6 +43,12 @@
           "lib/tinyxml2",
           "lib/hfst-ospell",
       ],
+      "xcode_settings": {
+        "OTHER_CFLAGS": [
+          "-Wall", "-std=c++11",
+          "<!(pkg-config --cflags libarchive)",
+        ],
+      },
       "cflags": [
         "-Wall", "-std=c++11",
         "<!(pkg-config --cflags libarchive)",
