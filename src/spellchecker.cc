@@ -19,6 +19,7 @@ void SpellChecker::Init(v8::Local<v8::Object> exports) {
 
   // Prototype
   Nan::SetPrototypeMethod(tpl, "suggestions", Suggestions);
+  Nan::SetPrototypeMethod(tpl, "alphabet", GetAlphabet);
 
   constructor.Reset(tpl->GetFunction());
   exports->Set(Nan::New("SpellChecker").ToLocalChecked(), tpl->GetFunction());
@@ -89,6 +90,22 @@ void SpellChecker::New(const Nan::FunctionCallbackInfo<v8::Value> &info) {
     v8::Local<v8::Function> cons = Nan::New<v8::Function>(constructor);
     info.GetReturnValue().Set(cons->NewInstance(argc, argv));
   }
+}
+
+void SpellChecker::GetAlphabet(const Nan::FunctionCallbackInfo<v8::Value> &info) {
+    v8::Isolate *isolate = v8::Isolate::GetCurrent();
+    SpellChecker *obj = Nan::ObjectWrap::Unwrap<SpellChecker>(info.Holder());
+
+    std::vector<std::string> alpha = *(obj->speller->get_alphabet());
+    v8::Handle<v8::Array> outArray = v8::Array::New(isolate, alpha.size());
+
+    unsigned int i = 0;
+    for (std::vector<std::string>::iterator it = alpha.begin(); it != alpha.end(); ++it) {
+        outArray->Set(i, v8::String::NewFromUtf8(isolate, it->c_str()));
+        i++;
+    }
+
+    info.GetReturnValue().Set(outArray);
 }
 
 void SpellChecker::Suggestions(
