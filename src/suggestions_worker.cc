@@ -7,7 +7,7 @@ class SuggestionsWorker : public Nan::AsyncWorker {
 public:
   SuggestionsWorker(Nan::Callback *callback, ZHfstOspeller *speller,
                     std::string word, std::mutex *suggestionsMutex)
-      : Nan::AsyncWorker(callback), speller(speller), word(word),
+      : Nan::AsyncWorker(callback), word(word), speller(speller),
         suggestionsMutex(suggestionsMutex) {}
   ~SuggestionsWorker() {}
 
@@ -44,7 +44,7 @@ public:
 
     // Return an empty result if there was an error creating the array.
     if (correctionsArray.IsEmpty()) {
-      v8::Local<v8::Value> argv[] = {Nan::Error("Error creating the arry"),
+      v8::Local<v8::Value> argv[] = {Nan::Error("Error creating the array"),
                                      Nan::Null()};
 
       callback->Call(2, argv);
