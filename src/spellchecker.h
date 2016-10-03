@@ -21,6 +21,8 @@ private:
   static void New(const Nan::FunctionCallbackInfo<v8::Value> &info);
   static void Suggestions(const Nan::FunctionCallbackInfo<v8::Value> &info);
   static void GetAlphabet(const Nan::FunctionCallbackInfo<v8::Value> &info);
+  static void GetLocale(const Nan::FunctionCallbackInfo<v8::Value> &info);
+  static void GetLocaleName(const Nan::FunctionCallbackInfo<v8::Value> &info);
 
   static Nan::Persistent<v8::Function> constructor;
   ZHfstOspeller *speller;

@@ -20,6 +20,8 @@ void SpellChecker::Init(v8::Local<v8::Object> exports) {
   // Prototype
   Nan::SetPrototypeMethod(tpl, "suggestions", Suggestions);
   Nan::SetPrototypeMethod(tpl, "alphabet", GetAlphabet);
+  Nan::SetPrototypeMethod(tpl, "locale", GetLocale);
+  Nan::SetPrototypeMethod(tpl, "localeName", GetLocaleName);
 
   constructor.Reset(tpl->GetFunction());
   exports->Set(Nan::New("SpellChecker").ToLocalChecked(), tpl->GetFunction());
@@ -107,6 +109,41 @@ void SpellChecker::GetAlphabet(const Nan::FunctionCallbackInfo<v8::Value> &info)
 
     info.GetReturnValue().Set(outArray);
 }
+
+void SpellChecker::GetLocale(const Nan::FunctionCallbackInfo<v8::Value> &info) {
+    v8::Isolate *isolate = v8::Isolate::GetCurrent();
+    SpellChecker *obj = Nan::ObjectWrap::Unwrap<SpellChecker>(info.Holder());
+
+    v8::Handle<v8::String> out = v8::String::NewFromUtf8(isolate,
+        obj->speller->get_metadata().info_.locale_.c_str());
+
+    info.GetReturnValue().Set(out);
+}
+
+void SpellChecker::GetLocaleName(const Nan::FunctionCallbackInfo<v8::Value> &info) {
+    v8::Isolate *isolate = v8::Isolate::GetCurrent();
+    SpellChecker *obj = Nan::ObjectWrap::Unwrap<SpellChecker>(info.Holder());
+
+    std::string locale = obj->speller->get_metadata().info_.locale_;
+    std::map<std::string, std::string> names = obj->speller->get_metadata().info_.title_;
+
+    std::map<std::string, std::string>::iterator it = names.find(locale);
+
+    if (it != names.end()) {
+        info.GetReturnValue().Set(v8::String::NewFromUtf8(isolate, it->second.c_str()));
+        return;
+    }
+
+    it = names.find("en");
+    
+    if (it != names.end()) {
+        info.GetReturnValue().Set(v8::String::NewFromUtf8(isolate, it->second.c_str()));
+        return;
+    }
+
+    info.GetReturnValue().Set(v8::String::NewFromUtf8(isolate, locale.c_str()));
+}
+
 
 void SpellChecker::Suggestions(
     const Nan::FunctionCallbackInfo<v8::Value> &info) {
