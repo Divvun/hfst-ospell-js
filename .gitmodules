@@ -1,9 +1,11 @@
 [submodule "hfst-ospell"]
 	path = lib/hfst-ospell
-	url = https://github.com/hfst/hfst-ospell.git
+	url = https://github.com/bbqsrc/hfst-ospell-1.git
+	commit = c3751be2b2f1b113e2bb96503e7c03d68ab04f7f
 [submodule "tinyxml2"]
 	path = lib/tinyxml2
 	url = https://github.com/leethomason/tinyxml2.git
+	commit = 1977a7258cc66fd4da7f1e9da05a4933646a7803
 [submodule "libarchive"]
 	path = lib/libarchive
 	url = https://github.com/libarchive/libarchive.git
