@@ -8,6 +8,12 @@ try {
   SpellChecker = require("./build/Release/hfst-ospell").SpellChecker;
 }
 
+if (!Array.prototype.includes) {
+  Array.prototype.includes = function includes(item) {
+    return this.indexOf(item) > -1;
+  }
+}
+
 const co = require("co")
 const bluebird = require("bluebird")
 const _ = require("lodash")
