@@ -97,9 +97,16 @@ function wordVariants(speller, word) {
   return _.uniqBy(base)
 }
 
+function isAllCaps(word) {
+  return word === word.toUpperCase()
+}
+
+function isFirstCap(word) {
+  return word[0] === word[0].toUpperCase()
+}
+
 const suggestionGenerator = co.wrap(function* (speller, words) {
   const next = (nextWord) => {
-    console.log(nextWord)
     return new Promise((resolve, reject) => {
       callbackSuggestions.call(speller, nextWord, (err, res) => {
         if (err) {
@@ -112,7 +119,7 @@ const suggestionGenerator = co.wrap(function* (speller, words) {
   }
 
   for (const variant of words) {
-    const res = yield next(variant)
+    let res = yield next(variant)
 
     // Result found!
     if (res === false) {
@@ -120,7 +127,15 @@ const suggestionGenerator = co.wrap(function* (speller, words) {
     }
 
     if (res.length > 0) {
-      return res.slice(0, 10)
+      res = res.slice(0, 10)
+
+      if (isAllCaps(variant)) {
+        return res.map(x => x.toUpperCase())
+      } else if (isFirstCap(variant)) {
+        return res.map(x => _.capitalize(x))
+      } else {
+        return res
+      }
     }
   }
 
