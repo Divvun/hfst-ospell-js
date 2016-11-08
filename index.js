@@ -126,21 +126,19 @@ const suggestionGenerator = co.wrap(function* (speller, words) {
       return false
     }
 
-    // Also found.
-    if (res.indexOf(variant) > -1) {
-      return false
-    }
-
     if (res.length > 0) {
-      res = res.slice(0, 10)
-
       if (isAllCaps(variant)) {
-        return res.map(x => x.toUpperCase())
+        res = res.map(x => x.toUpperCase())
       } else if (isFirstCap(variant)) {
-        return res.map(x => _.capitalize(x))
-      } else {
-        return res
+        res = res.map(x => _.capitalize(x))
       }
+
+      // Also found.
+      if (res.indexOf(variant) > -1) {
+        return false
+      }
+
+      return res.slice(0, 10)
     }
   }
 
