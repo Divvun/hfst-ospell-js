@@ -126,6 +126,11 @@ const suggestionGenerator = co.wrap(function* (speller, words) {
       return false
     }
 
+    // Also found.
+    if (res.indexOf(variant) > -1) {
+      return false
+    }
+
     if (res.length > 0) {
       res = res.slice(0, 10)
 
